@@ -31,10 +31,14 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useStore } from 'vuex'
+
 import PizzaCheckbox from './PizzaRadio.vue'
 import SizeCheckbox from './SizeRadio.vue'
 import ToppingCheckbox from './ToppingCheckbox.vue'
 import PaymentSummary from './PaymentSummary.vue'
+
+const store = useStore()
 
 const pizzaList = ref()
 const sizeList = ref()
@@ -45,12 +49,15 @@ onMounted(async () => {
     // await store.dispatch('pizza/getPizzaData')
     // pizzaListStatus.value = true
     // pizzaList.value = store.state.pizza.pizzas
-    const pizza = await import('@/assets/data/json/pizza-list.json')
-    const sizes = await import('@/assets/data/json/size-list.json')
-    const toppings = await import('@/assets/data/json/topping-list.json')
-    pizzaList.value = pizza.data
-    sizeList.value = sizes.data
-    toppingList.value = toppings.data
+    // const pizza = await import('@/assets/data/json/pizza-list.json')
+    // const sizes = await import('@/assets/data/json/size-list.json')
+    // const toppings = await import('@/assets/data/json/topping-list.json')
+    await store.dispatch('pizza/getPizzaData')
+    await store.dispatch('pizza/getSizeData')
+    await store.dispatch('pizza/getToppingData')
+    pizzaList.value = store.state.pizza.pizzas
+    sizeList.value = store.state.pizza.sizes
+    toppingList.value = store.state.pizza.toppings
   } catch (error) {
     console.error('Error fetching product data:', error)
   } finally {
