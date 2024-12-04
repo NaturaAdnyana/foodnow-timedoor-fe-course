@@ -1,0 +1,43 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+:root {
+  --primary: 231, 126, 35;
+  --white: #f8f8f6;
+}
+
+body {
+  min-height: 100vh;
+  color: #333;
+  background: var(--white);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family: Inter, sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.btn-custom-primary {
+  background-color: rgb(var(--primary));
+}
+
+.btn-custom-primary:hover {
+  background-color: #c16515;
+}
+
+.border-custom-primary {
+  border-color: rgb(var(--primary)) !important;
+}
+
+.text-custom-primary {
+  color: rgb(var(--primary));
+}
