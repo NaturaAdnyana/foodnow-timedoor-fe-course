@@ -8,6 +8,7 @@
           :key="pizza.id"
           :pizza="pizza"
           v-model="selectedPizza.type"
+          @update:modelValue="updatePizzaType"
         ></pizza-radio>
       </div>
     </div>
@@ -67,22 +68,22 @@ const selectedPizza = reactive({
 
 const pizzaSelected = computed(() => !!selectedPizza.type.id)
 
+const updatePizzaType = (type) => {
+  store.dispatch('order/setPizzaType', type)
+}
+
 const updateSize = (size) => {
   selectedPizza.size = size
+  store.dispatch('order/setSize', selectedPizza.size)
 }
 
 const updateToppings = (newToppings) => {
   selectedPizza.toppings = newToppings
+  store.dispatch('order/setToppings', selectedPizza.toppings)
 }
 
 onMounted(async () => {
   try {
-    // await store.dispatch('pizza/getPizzaData')
-    // pizzaListStatus.value = true
-    // pizzaList.value = store.state.pizza.pizzas
-    // const pizza = await import('@/assets/data/json/pizza-list.json')
-    // const sizes = await import('@/assets/data/json/size-list.json')
-    // const toppings = await import('@/assets/data/json/topping-list.json')
     await store.dispatch('pizza/getPizzaData')
     await store.dispatch('pizza/getSizeData')
     await store.dispatch('pizza/getToppingData')
