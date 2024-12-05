@@ -3,9 +3,10 @@
     <input
       class="form-check-input"
       type="radio"
-      name="inlineRadioOptions"
+      name="size"
       :id="`size-check-${size.id}`"
-      value="size"
+      :disabled="disabled"
+      @change="$emit('update:modelValue', size)"
     />
     <label class="form-check-label" :for="`size-check-${size.id}`"
       >{{ size.name }}
@@ -17,8 +18,16 @@
 <script setup>
 defineProps({
   size: {
-    type: String,
+    type: Object,
     require: true,
+  },
+  modelValue: {
+    type: Object,
+    required: true,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 })
 </script>

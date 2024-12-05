@@ -3,9 +3,11 @@
     <input
       type="checkbox"
       class="topping-check btn-check"
-      :id="`topping-check-${topping.id}`"
       autocomplete="off"
-      :disabled="false"
+      :id="`topping-check-${topping.id}`"
+      :disabled="!availableTopping.includes(topping.id)"
+      v-model="checked"
+      @change="$emit('update:checked', checked.value)"
     />
     <label
       class="topping btn d-flex justify-content-center align-items-center rounded-pill py-2 border border-opacity-75"
@@ -19,10 +21,44 @@
 </template>
 
 <script setup>
-defineProps({
+import { ref, watch } from 'vue'
+const props = defineProps({
   topping: {
-    type: String,
+    type: Object,
     require: true,
   },
+  availableTopping: {
+    type: Array,
+    require: true,
+    default: () => [],
+  },
+  selectedToppings: {
+    type: Array,
+    required: true,
+  },
 })
+
+const emit = defineEmits(['update:selectedToppings'])
+const checked = ref(false)
+
+watch(checked, (isChecked) => {
+  let updatedToppings
+
+  if (isChecked) {
+    updatedToppings = [...props.selectedToppings, props.topping]
+  } else {
+    updatedToppings = props.selectedToppings.filter((item) => item.id !== props.topping.id)
+  }
+
+  emit('update:selectedToppings', updatedToppings)
+})
+
+watch(
+  () => props.availableTopping,
+  (newAvailableTopping) => {
+    if (!newAvailableTopping.includes(props.topping.id)) {
+      checked.value = false
+    }
+  },
+)
 </script>

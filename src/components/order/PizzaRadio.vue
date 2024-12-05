@@ -6,6 +6,7 @@
       :id="`pizza-check-${pizza.id}`"
       autocomplete="off"
       name="pizza"
+      @change="$emit('update:modelValue', pizza)"
     />
     <label
       class="pizza btn d-flex justify-content-center align-items-center"
@@ -36,6 +37,10 @@ defineProps({
   pizza: {
     type: Object,
     require: true,
+  },
+  modelValue: {
+    type: Object,
+    required: true,
   },
 })
 

@@ -3,7 +3,12 @@
     <div>
       <h2>Choose your pizza</h2>
       <div class="pizza-option row gx-4">
-        <pizza-checkbox v-for="pizza in pizzaList" :key="pizza.id" :pizza="pizza"></pizza-checkbox>
+        <pizza-radio
+          v-for="pizza in pizzaList"
+          :key="pizza.id"
+          :pizza="pizza"
+          v-model="selectedPizza.type"
+        ></pizza-radio>
       </div>
     </div>
     <div>
@@ -11,7 +16,14 @@
       <div class="mb-5">
         <h3>Size</h3>
         <div class="pizza-option">
-          <size-checkbox v-for="size in sizeList" :key="size.id" :size="size"></size-checkbox>
+          <size-radio
+            v-for="size in sizeList"
+            :key="size.id"
+            :size="size"
+            :modelValue="selectedPizza.size"
+            @update:modelValue="updateSize"
+            :disabled="!pizzaSelected"
+          ></size-radio>
         </div>
       </div>
       <div>
@@ -21,6 +33,9 @@
             v-for="topping in toppingList"
             :key="topping.id"
             :topping="topping"
+            :availableTopping="selectedPizza.type.toppings"
+            :selectedToppings="selectedPizza.toppings"
+            @update:selectedToppings="updateToppings"
           ></topping-checkbox>
         </div>
       </div>
@@ -30,11 +45,11 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 
-import PizzaCheckbox from './PizzaRadio.vue'
-import SizeCheckbox from './SizeRadio.vue'
+import PizzaRadio from './PizzaRadio.vue'
+import SizeRadio from './SizeRadio.vue'
 import ToppingCheckbox from './ToppingCheckbox.vue'
 import PaymentSummary from './PaymentSummary.vue'
 
@@ -43,6 +58,22 @@ const store = useStore()
 const pizzaList = ref()
 const sizeList = ref()
 const toppingList = ref()
+
+const selectedPizza = reactive({
+  type: {},
+  size: {},
+  toppings: [],
+})
+
+const pizzaSelected = computed(() => !!selectedPizza.type.id)
+
+const updateSize = (size) => {
+  selectedPizza.size = size
+}
+
+const updateToppings = (newToppings) => {
+  selectedPizza.toppings = newToppings
+}
 
 onMounted(async () => {
   try {
@@ -55,13 +86,12 @@ onMounted(async () => {
     await store.dispatch('pizza/getPizzaData')
     await store.dispatch('pizza/getSizeData')
     await store.dispatch('pizza/getToppingData')
+
     pizzaList.value = store.state.pizza.pizzas
     sizeList.value = store.state.pizza.sizes
     toppingList.value = store.state.pizza.toppings
   } catch (error) {
     console.error('Error fetching product data:', error)
-  } finally {
-    console.log(pizzaList.value)
   }
 })
 </script>
