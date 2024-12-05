@@ -6,6 +6,7 @@
       :id="`pizza-check-${pizza.id}`"
       autocomplete="off"
       name="pizza"
+      :checked="modelValue && modelValue.id === pizza.id"
       @change="$emit('update:modelValue', pizza)"
     />
     <label

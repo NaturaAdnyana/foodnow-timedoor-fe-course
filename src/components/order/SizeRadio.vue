@@ -6,6 +6,7 @@
       name="size"
       :id="`size-check-${size.id}`"
       :disabled="disabled"
+      :checked="modelValue && modelValue.id === size.id"
       @change="$emit('update:modelValue', size)"
     />
     <label class="form-check-label" :for="`size-check-${size.id}`"

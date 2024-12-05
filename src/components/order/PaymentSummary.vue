@@ -27,12 +27,43 @@
         <button
           @click="handleClick"
           class="btn btn-custom-primary w-100 py-2 rounded-pill text-white"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
         >
           Order Now
         </button>
       </div>
     </div>
   </aside>
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div
+          class="modal-body p-4 d-flex flex-column gap-3 justify-content-center align-items-center"
+        >
+          <img src="@/assets/success.svg" alt="" />
+          <div class="text-center">
+            <h3 class="fs-3">Order Success</h3>
+            <p>Thank you, we have received your order successfully.</p>
+          </div>
+          <button
+            type="button"
+            class="btn btn-custom-primary w-100 py-2 rounded-pill text-white"
+            data-bs-dismiss="modal"
+            @click="$emit('reset')"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -60,7 +91,7 @@ const totalPrice = computed(() => {
   toppingList.value.forEach((topping) => {
     total += topping.price
   })
-  return total.toFixed(2)
+  return total?.toFixed(2)
 })
 
 const handleClick = () => {

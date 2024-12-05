@@ -42,7 +42,7 @@
       </div>
     </div>
   </section>
-  <payment-summary></payment-summary>
+  <payment-summary @reset="resetSelection"></payment-summary>
 </template>
 
 <script setup>
@@ -80,6 +80,19 @@ const updateSize = (size) => {
 const updateToppings = (newToppings) => {
   selectedPizza.toppings = newToppings
   store.dispatch('order/setToppings', selectedPizza.toppings)
+}
+
+const resetSelection = () => {
+  selectedPizza.type = {}
+  selectedPizza.size = {}
+  selectedPizza.toppings = []
+
+  store.dispatch('order/setPizzaType', {
+    name: '-',
+    price: 0,
+  })
+  store.dispatch('order/setSize', {})
+  store.dispatch('order/setToppings', [])
 }
 
 onMounted(async () => {
