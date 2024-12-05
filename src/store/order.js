@@ -1,8 +1,14 @@
 export default {
   namespaced: true,
   state: {
-    pizza: {},
-    size: {},
+    pizza: {
+      name: '-',
+      price: 0,
+    },
+    size: {
+      name: '',
+      price: '',
+    },
     toppings: [],
   },
   mutations: {
@@ -13,7 +19,7 @@ export default {
       state.size = sizes
     },
     setToppings(state, topping) {
-      state.topping = topping
+      state.toppings = topping
     },
   },
   actions: {
