@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="container border-top row gx-3">
-      <div class="py-5 col-3">
+      <div class="py-5 col-12 col-md-3">
         <img class="logo mb-5" src="@/assets/logo-alt.svg" alt="FoodNow" />
         <div>
           <h3 class="text-custom-primary">Find Us :</h3>
@@ -33,7 +33,7 @@
           </div>
         </div>
       </div>
-      <div class="py-5 col-3 row">
+      <div class="p-5 col-12 col-md-3 row">
         <h3 class="text-custom-primary">Navigation</h3>
         <div class="col-6">
           <router-link class="nav-link active" aria-current="page" to="/">Home</router-link>
@@ -47,7 +47,7 @@
           <router-link class="nav-link active" aria-current="page" to="/">Register</router-link>
         </div>
       </div>
-      <div class="py-5 col-3 row">
+      <div class="py-5 col-12 col-md-3 row">
         <h3 class="text-custom-primary">Contact</h3>
         <div class="col-12">
           <ul>
@@ -74,7 +74,7 @@
           </ul>
         </div>
       </div>
-      <div class="py-5 col-3">
+      <div class="py-5 col-12 col-md-3">
         <h3 class="text-custom-primary">Location</h3>
         <div class="col-12">
           <a
@@ -83,7 +83,7 @@
           >
             <i class="fa-regular fa-building me-2"></i>
             <b>Kerobokan</b>
-            <p>
+            <p class="ps-3">
               Jl. Raya Kerobokan Br Taman, Kuta No.98, Kerobokan Kelod, Kec. Kuta Utara, Kabupaten
               Badung, Bali 80361
             </p>

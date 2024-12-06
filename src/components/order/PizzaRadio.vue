@@ -1,5 +1,5 @@
 <template>
-  <div class="col-4">
+  <div class="col-12 col-md-4">
     <input
       type="radio"
       class="pizza-check btn-check"

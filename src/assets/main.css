@@ -1,5 +1,10 @@
 @import './base.css';
 
+.navbar {
+  transition: 0.3s;
+  backdrop-filter: blur(20px);
+}
+
 .hero {
   width: 100%;
   height: 60vh;
@@ -181,4 +186,19 @@ aside .count-total {
 .total-price {
   font-weight: bold;
   color: var(--primary);
+}
+
+@media only screen and (max-width: 600px) {
+  main {
+    padding: 7rem 2rem;
+  }
+  footer {
+    padding: 2rem 2rem 0 2rem;
+  }
+  .pizza-options {
+    flex-basis: 100%;
+  }
+  aside {
+    flex-basis: 100%;
+  }
 }

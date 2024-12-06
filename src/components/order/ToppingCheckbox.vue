@@ -1,5 +1,5 @@
 <template>
-  <div class="col-2">
+  <div class="col-4 col-md-2">
     <input
       type="checkbox"
       class="topping-check btn-check"

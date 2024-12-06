@@ -2,7 +2,7 @@
   <section class="pizza-options">
     <div>
       <h2>Choose your pizza</h2>
-      <div class="pizza-option row gx-4">
+      <div class="pizza-option row gx-4 gy-3 gy-md-0">
         <pizza-radio
           v-for="pizza in pizzaList"
           :key="pizza.id"

@@ -1,7 +1,7 @@
 <template>
   <web-header></web-header>
   <hero-section></hero-section>
-  <main class="bg-light">
+  <main class="bg-light flex-wrap">
     <RouterView :key="$route.fullPath" />
   </main>
 

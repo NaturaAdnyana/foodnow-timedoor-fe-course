@@ -1,6 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-lg position-absolute w-100">
-    <div class="container-md px-5">
+  <nav
+    :class="['navbar', 'navbar-expand-lg', 'fixed-top', 'w-100', { 'navbar-custom': isScrolled }]"
+  >
+    <div class="container-md px-4">
       <router-link class="navbar-brand fw-bold text-success" to="/">
         <img src="@/assets/logo.svg" width="150px" class="pe-2" />
       </router-link>
@@ -13,7 +15,7 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span :class="['navbar-toggler-icon', { 'navbar-dark': !isScrolled }]"></span>
       </button>
       <div class="collapse navbar-collapse my-2" id="navbarSupportedContent">
         <ul class="navbar-nav d-flex justify-content-center align-items-center w-100">
@@ -44,7 +46,7 @@
           </li>
         </ul>
         <ul class="navbar-nav">
-          <component :is="components[menuComponent]"></component>
+          <component :is="components[menuComponent]" :isScrolled="isScrolled"></component>
         </ul>
       </div>
     </div>
@@ -55,11 +57,13 @@
 import AuthMenu from './AuthMenu.vue'
 // import ProfileMenu from './ProfileMenu.vue'
 
-import { computed, ref, watch } from 'vue'
-import { useStore } from 'vuex'
+import { onMounted, onUnmounted, ref } from 'vue'
+// import { useStore } from 'vuex'
 
 const menuComponent = ref('auth-menu')
-const store = useStore()
+// const store = useStore()
+
+const isScrolled = ref(false)
 
 const components = {
   'auth-menu': AuthMenu,
@@ -83,4 +87,28 @@ menuComponent.value = 'auth-menu'
 //     menuComponent.value = 'profile-menu'
 //   }
 // })
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 0
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
+
+<style scoped>
+.navbar-custom {
+  background-color: #f8f8f6;
+}
+/* .navbar-custom ul li a {
+  color: black !important;
+} */
+.navbar-custom div .navbar-nav .nav-item a {
+  color: black !important;
+}
+</style>
